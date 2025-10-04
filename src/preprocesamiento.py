@@ -1,6 +1,5 @@
 from __future__ import annotations
 from pathlib import Path
-from typing import Optional
 import numpy as np
 import pandas as pd
 import torch
@@ -19,8 +18,8 @@ class DatasetVentanasETT(Dataset):
         horizonte: int,
         col_objetivo: str,
         cols_features: list[str],
-        esc_x: Optional[StandardScaler],
-        esc_y: Optional[StandardScaler],
+        esc_x: StandardScaler | None,
+        esc_y: StandardScaler | None,
     ):
         self.long_ventana = long_ventana
         self.horizonte = horizonte
@@ -94,7 +93,7 @@ def crear_loaders(
     batch: int,
     workers: int,
     persistent_workers: bool = False,
-    prefetch_factor: Optional[int] = None,
+    prefetch_factor: int | None = None,
     drop_last_train: bool = False,
 ):
     usar_persist = persistent_workers and (workers > 0)

@@ -2,7 +2,6 @@ from __future__ import annotations
 import math
 from pathlib import Path
 import time
-from typing import Dict, List, Tuple
 
 import torch
 import torch.nn as nn
@@ -54,7 +53,7 @@ def _coerce_pred(pred) -> torch.Tensor:
     raise TypeError(f"Tipo de salida no soportado: {type(pred)}")
 
 
-def _match_shape(pred: torch.Tensor, yb: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+def _match_shape(pred: torch.Tensor, yb: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
     if pred.shape == yb.shape:
         return pred, yb
     if pred.ndim == yb.ndim - 1 and yb.size(-1) == 1 and pred.shape == yb.squeeze(-1).shape:
@@ -109,7 +108,7 @@ def entrenar_validar(
     usar_earlystop: bool = True,
     paciencia_es: int = 6,
     min_delta_es: float = 1e-3,
-) -> Dict[str, list]:
+) -> dict[str, list]:
     modelo = modelo.to(device)
     optim = torch.optim.AdamW(modelo.parameters(), lr=lr, weight_decay=1e-2)
     autocast_dtype = torch.bfloat16 if amp_dtype == "bf16" else torch.float16
@@ -272,7 +271,7 @@ def evaluar_test(
     batch: int = 512,
     esc_y=None,
     mape_original: bool = True,
-) -> Tuple[float, float, float, float, float]:
+) -> tuple[float, float, float, float, float]:
     dl_test = DataLoader(ds_test, batch_size=batch, shuffle=False)
     modelo = modelo.to(device)
     modelo.eval()
@@ -317,13 +316,13 @@ def evaluar_test(
 
 # --------- Serie para gráficas ---------
 def obtener_hist_y_preds_ultima_ventana(
-    modelos: List[Tuple[str, nn.Module]],
+    modelos: list[tuple[str, nn.Module]],
     ds_test: Dataset,
     device: torch.device,
     idx_col_objetivo: int,
     desnormalizar: bool = False,
     esc_y=None,
-) -> Tuple[torch.Tensor, torch.Tensor, Dict[str, torch.Tensor]]:
+) -> tuple[torch.Tensor, torch.Tensor, dict[str, torch.Tensor]]:
     i = len(ds_test) - 1
     xb, yb = ds_test[i]
     if yb.ndim == 1:
@@ -331,7 +330,7 @@ def obtener_hist_y_preds_ultima_ventana(
     hist = xb[:, idx_col_objetivo].unsqueeze(-1)
     fut = yb.clone()
     xb_batch = xb.unsqueeze(0).to(device)
-    preds: Dict[str, torch.Tensor] = {}
+    preds: dict[str, torch.Tensor] = {}
     for nombre, modelo in modelos:
         modelo = modelo.to(device)
         modelo.eval()

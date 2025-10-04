@@ -2,22 +2,6 @@
 
 ## Arquitectura Implementada
 
-### Jerarquía de Módulos
-
-```
-TreeDRNet
-├── Conv1D (opcional)
-└── MultiBranchBlock
-    └── GatedBranch (×K)
-        ├── Gate Network
-        └── DResBlock
-            ├── MLP
-            ├── Backcast Head
-            └── Forecast Head
-```
-
----
-
 ## Módulos Principales
 
 ### 1. DResBlock
@@ -192,58 +176,6 @@ Nivel 3: 8 nodos → generan 16 forecasts
 Total forecasts = 2 + 4 + 8 + 16 = 30
 Predicción final = promedio de los 30 forecasts
 ```
-
----
-
-## Detalles Técnicos Importantes
-
-### 1. Por qué `forward_all_branches`?
-
-**Problema original**:
-```python
-# ❌ INCORRECTO (bug original)
-nuevos_nodos.extend([nodo - bc, nodo - bc])  # Duplicados idénticos!
-```
-
-**Solución**:
-```python
-# ✅ CORRECTO
-bcs, fcs = self.block.forward_all_branches(nodo)
-for bc in bcs:  # Cada rama genera un backcast diferente
-    nuevos_nodos.append(nodo - bc)
-```
-
-**Por qué importa**:
-- Cada rama tiene su propio gate → selecciona diferentes features
-- Backcasts diferentes → nodos hijos diferentes
-- Diversidad en el árbol → mejor ensemble
-
-### 2. Manejo de Dimensiones
-
-```python
-Input: (batch=32, L=96, D=7)
-↓ _prep_x + flatten
-(32, 672)  # 96 × 7
-↓ MultiBranchBlock
-backcasts: (32, 672)
-forecasts: (32, H)
-↓ Acumulación por niveles
-total_forecast: (32, H)
-↓ unsqueeze
-Output: (32, H, 1)
-```
-
-### 3. Conv1D para Covariables
-
-**Motivación**: Procesar las D=7 covariables temporales antes de flatten.
-
-```python
-Conv1d(in_channels=7, out_channels=7, kernel_size=1)
-```
-
-- **kernel_size=1**: Solo mezcla entre covariables, no temporal
-- **in=out**: Mantiene número de variables
-- **Efecto**: Aprende combinaciones lineales de covariables útiles
 
 ---
 

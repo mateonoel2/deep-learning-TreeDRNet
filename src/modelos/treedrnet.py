@@ -1,13 +1,11 @@
 from __future__ import annotations
 import torch
 import torch.nn as nn
-from typing import Tuple, List
-
 
 class DResBlock(nn.Module):
     def __init__(self, dim_in: int, hidden: int, horizonte: int, mlp_depth: int = 2, dropout: float = 0.0):
         super().__init__()
-        mlp: List[nn.Module] = []
+        mlp: list[nn.Module] = []
         d = dim_in
         for _ in range(mlp_depth):
             mlp += [nn.Linear(d, hidden), nn.ReLU()]
@@ -18,7 +16,7 @@ class DResBlock(nn.Module):
         self.backcast = nn.Linear(hidden, dim_in)
         self.forecast = nn.Linear(hidden, horizonte)
 
-    def forward(self, x_flat: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+    def forward(self, x_flat: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         h = self.mlp(x_flat)
         bc = self.backcast(h)
         fc = self.forecast(h)
@@ -41,7 +39,7 @@ class GatedBranch(nn.Module):
         )
         self.core = DResBlock(dim_in, hidden_core, horizonte, mlp_depth=mlp_depth, dropout=dropout)
 
-    def forward(self, x_flat: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+    def forward(self, x_flat: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         g = self.gate(x_flat)
         x_sel = x_flat * g
         bc, fc = self.core(x_sel)
@@ -68,7 +66,7 @@ class MultiBranchBlock(nn.Module):
             ]
         )
 
-    def forward(self, x_flat: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+    def forward(self, x_flat: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         bcs, fcs = [], []
         for br in self.branches:
             bc, fc = br(x_flat)
@@ -78,7 +76,7 @@ class MultiBranchBlock(nn.Module):
         fc = torch.stack(fcs, dim=0).mean(dim=0)
         return bc, fc
 
-    def forward_all_branches(self, x_flat: torch.Tensor) -> Tuple[List[torch.Tensor], List[torch.Tensor]]:
+    def forward_all_branches(self, x_flat: torch.Tensor) -> tuple[list[torch.Tensor], list[torch.Tensor]]:
         bcs, fcs = [], []
         for br in self.branches:
             bc, fc = br(x_flat)
