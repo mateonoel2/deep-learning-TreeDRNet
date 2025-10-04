@@ -1,17 +1,5 @@
 # Resultados Experimentales
 
-> **Tiempo de presentación**: 5 minutos  
-> **Objetivo**: Reportar MSE y MAE por horizonte y discutir hallazgos
-
-## 📑 Índice de Contenidos (Timing Sugerido)
-
-1. **Setup Experimental** (1 min) - Configuración de experimentos
-2. **MSE y MAE por Horizonte** (2 min) - Métricas principales
-3. **Análisis de Convergencia** (1 min) - Ejemplo de entrenamiento
-4. **Discusión** (1 min) - Hallazgos clave
-
----
-
 ## 📊 Configuración Experimental
 
 ### Setup

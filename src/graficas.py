@@ -145,12 +145,12 @@ def grafica_serie_test_multi(
     x_zoom = np.arange(H)
     fig = plt.figure(figsize=(12, 9))
     ax1 = fig.add_subplot(2, 1, 1)
-    ax1.plot(x_hist, hist, label="Real (historial)", linewidth=2.0)
-    ax1.plot(x_fut, fut, label="Real (futuro)", linewidth=2.0, linestyle=":")
+    ax1.plot(x_hist, hist, label="Real (historial)", linewidth=2.0, color='gray')
+    ax1.plot(x_fut, fut, label="Real (futuro)", linewidth=2.0, linestyle=":", color='#1f77b4')
     for i, (nombre, arr) in enumerate(preds.items()):
         y = arr.squeeze(-1)
         estilo = "--" if i % 2 == 0 else "-."
-        ax1.plot(x_fut, y, label=f"Pred {nombre}", linestyle=estilo)
+        ax1.plot(x_fut, y, label=f"Pred {nombre}", linestyle=estilo, color='#ff7f0e')
     ax1.axvline(x=L, color="gray", linestyle="--", alpha=0.6)
     titulo = f"{dataset} | L={L} H={H} | Serie test (última ventana)"
     if titulo_extra:
@@ -161,11 +161,11 @@ def grafica_serie_test_multi(
     ax1.grid(True, alpha=0.3)
     ax1.legend()
     ax2 = fig.add_subplot(2, 1, 2)
-    ax2.plot(x_zoom, fut, label="Real (futuro)", linewidth=2.0, linestyle=":")
+    ax2.plot(x_zoom, fut, label="Real (futuro)", linewidth=2.0, linestyle=":", color='#1f77b4')
     for i, (nombre, arr) in enumerate(preds.items()):
         y = arr.squeeze(-1)
         estilo = "--" if i % 2 == 0 else "-."
-        ax2.plot(x_zoom, y, label=f"Pred {nombre}", linestyle=estilo)
+        ax2.plot(x_zoom, y, label=f"Pred {nombre}", linestyle=estilo, color='#ff7f0e')
     ax2.set_title("Zoom en el horizonte (H pasos)")
     ax2.set_xlabel("Paso futuro (0..H-1)")
     ax2.set_ylabel("Valor (normalizado)")

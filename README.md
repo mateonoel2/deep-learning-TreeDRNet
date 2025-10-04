@@ -16,8 +16,6 @@ Aplicar el approach del paper **"TreeDRNet: A Robust Deep Model for Long Term Ti
 
 ## 📚 Documentación Detallada
 
-Este proyecto incluye documentación separada para presentaciones de 5 minutos:
-
 ### 1. [METODOLOGIA.md](METODOLOGIA.md) 📄
 **Contenido del paper TreeDRNet**:
 - Motivación y problema a resolver
