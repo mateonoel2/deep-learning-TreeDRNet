@@ -1,24 +1,10 @@
 # Metodología TreeDRNet
 
-> **Tiempo de presentación**: 5 minutos  
-> **Objetivo**: Explicar el approach del paper y fundamentos teóricos
-
-## 📑 Índice de Contenidos (Timing Sugerido)
-
-1. **Motivación y Problema** (1 min) - Por qué TreeDRNet
-2. **Arquitectura Principal** (2 min) - Los 4 componentes clave
-3. **Fundamentos Teóricos** (1 min) - Robust regression + Kolmogorov-Arnold
-4. **Ventajas y Resultados** (1 min) - Por qué es mejor que SOTA
-
----
-
 ## 📄 Paper Original
 
 **TreeDRNet: A Robust Deep Model for Long Term Time Series Forecasting**  
 Zhou, T., Zhu, J., Wang, X., Ma, Z., Wen, Q., Sun, L., & Jin, R. (2022)  
 [arXiv:2206.12106](https://arxiv.org/abs/2206.12106)
-
----
 
 ## 🎯 Motivación
 

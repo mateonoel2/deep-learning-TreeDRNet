@@ -1,7 +1,9 @@
 from __future__ import annotations
+import math
 from pathlib import Path
-import time, math
-from typing import Dict, Tuple, List
+import time
+from typing import Dict, List, Tuple
+
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
