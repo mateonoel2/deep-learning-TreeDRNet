@@ -110,7 +110,7 @@ def grafica_metricas_horizontes(ruta_csv: Path, dataset: str, ruta_salida: Path)
 
     def _plot_metric(columna, etiqueta_y, ruta_png):
         plt.figure(figsize=(10, 6))
-        for nombre_modelo, dfm in df.groupby("modelos"):
+        for nombre_modelo, dfm in df.groupby("modelo"):
             if columna not in dfm.columns:
                 continue
             plt.plot(dfm["H"], dfm[columna], marker="o", label=nombre_modelo)
