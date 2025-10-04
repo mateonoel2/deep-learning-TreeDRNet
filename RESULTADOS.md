@@ -1,5 +1,20 @@
 # Resultados Experimentales
 
+## Tabla de Contenidos
+
+1. [Configuración Experimental](#configuración-experimental)
+2. [Métricas de Test: MSE y MAE](#métricas-de-test-mse-y-mae)
+3. [Tabla de Resultados](#tabla-de-resultados-mse-y-mae-por-horizonte)
+4. [Ejemplos de Convergencia](#ejemplos-de-convergencia)
+5. [Análisis de Convergencia](#análisis-de-convergencia)
+6. [Discusión](#discusión)
+7. [Visualizaciones](#visualizaciones)
+8. [Conclusiones](#conclusiones)
+9. [Apéndice: Mejores y Peores Resultados](#apéndice-mejores-y-peores-resultados)
+10. [Índice de Archivos Generados](#índice-de-archivos-generados)
+
+---
+
 ## Configuración Experimental
 
 ### Setup
@@ -120,6 +135,14 @@ Para cada combinación (dataset, horizonte) se reportan las **dos métricas prin
 - ✅ **Estabilidad completa**: Sin overfitting severo ni explosión de gradientes
 - ✅ **Aceleración progresiva**: Velocidad mejora de 8→65 it/s tras primera época
 
+**Gráficas de entrenamiento**:
+
+![MSE ETTh1-H24](resultados/ETTh1/H24/graficas/ETTh1_L96_H24_mse.png)
+*Evolución de MSE: Convergencia rápida en 11 épocas, val MSE se estabiliza*
+
+![Predicciones ETTh1-H24](resultados/ETTh1/H24/graficas/ETTh1_L96_H24_serie_test_MULTI.png)
+*Predicciones vs Real: 7 variables en ventana de test*
+
 ### ETTm1-H24: Mejor Desempeño Global
 
 | Época | Train MSE | Val MSE | Train MAE | Val MAE | LR | Velocidad |
@@ -141,6 +164,11 @@ Para cada combinación (dataset, horizonte) se reportan las **dos métricas prin
 - ✅ **Mejor resultado general**: MSE 2.6× mejor que ETTh1, 6× mejor que ETTh2
 - ✅ **Convergencia similar**: Mismo patrón de 11 épocas
 - ⚠️ **Ligero overfitting**: Val MSE sube mientras Train MSE baja (época 10-11)
+
+**Gráficas de entrenamiento**:
+
+![MSE ETTm1-H24](resultados/ETTm1/H24/graficas/ETTm1_L96_H24_mse.png)
+*Evolución de MSE: Mejor resultado global (Test MSE=0.0254), ligero overfitting visible al final*
 
 ---
 
@@ -316,16 +344,48 @@ Para ETTh1, ETTh2 y ETTm1 se generaron **5 gráficas comparativas**:
 - **ETTh1**: Pico anómalo en H=192 (MSE=0.296), luego mejora
 - **ETTh2**: Pico extremo en H=96 (MSE=0.607), resto relativamente plano
 
+**Gráficas**:
+
+![MSE ETTh1](resultados/ETTh1/graficas/ETTh1_metricas_mse.png)
+*ETTh1: Pico anómalo en H=192, luego mejora en H=336 y H=720*
+
+![MSE ETTh2](resultados/ETTh2/graficas/ETTh2_metricas_mse.png)
+*ETTh2: Pico extremo en H=96 (MSE=0.607), anomalía severa*
+
+![MSE ETTm1](resultados/ETTm1/graficas/ETTm1_metricas_mse.png)
+*ETTm1: Mejor desempeño general, crecimiento más controlado*
+
+#### MAE vs Horizonte
+- **Tendencia similar a MSE**: Crecimiento general con excepciones
+- **ETTm1 consistentemente mejor**: MAE 0.116-0.419 vs ETTh2 0.301-0.611
+
+**Ver gráficas en**: `resultados/{ETTh1,ETTh2,ETTm1}/graficas/*_metricas_mae.png`
+
 #### R² Score vs Horizonte
 - **Valores negativos dominantes**: Indica que el modelo no ajusta mejor que la media
 - **ETTh2**: R² fuertemente negativo en H=96 (R²≈-1.26), coincide con pico de MSE
 - **ETTh1 y ETTm1**: También presentan R² negativos en varios horizontes
 - **Interpretación**: Modelo puede tener dificultad con patrones de largo plazo en escala normalizada
 
-#### MAPE (Mean Absolute Percentage Error)
-- **⚠️ Valores extremos**: MAPE en millones (ej: ETTm1 ~60M, ETTh1 ~5M)
-- **Causa probable**: División por valores cercanos a cero en escala normalizada
+**Ver gráficas en**: `resultados/{ETTh1,ETTh2,ETTm1}/graficas/*_metricas_r2.png`
+
+#### RMSE y MAPE vs Horizonte
+- **RMSE**: Comportamiento similar a MSE (RMSE = √MSE), suaviza diferencias extremas
+- **MAPE**: ⚠️ Valores extremos en millones debido a división por valores cercanos a cero en escala normalizada
 - **Conclusión**: MAPE no es métrica adecuada para series normalizadas, usar MSE/MAE
+
+**Ver en**: `resultados/{dataset}/graficas/` para todas las métricas consolidadas
+
+### Notas sobre Visualizaciones
+
+**Tipos de gráficas disponibles**:
+- **Por experimento**: 8 gráficas (MSE, MAE, RMSE, MAPE, R², LR, velocidad, predicciones)
+- **Consolidadas por dataset**: 5 gráficas comparando horizontes
+
+**Gráficas clave para revisar**:
+- MSE consolidadas: Muestran anomalías (ETTh2-H96) y superioridad de ETTm1
+- Predicciones (`*_serie_test_MULTI.png`): Ajuste visual de las 7 variables
+- Velocidad: Warm-up inicial (~8-13 it/s) → estabilización (~40-65 it/s)
 
 ---
 
@@ -414,4 +474,87 @@ Este trabajo presenta:
 - ETTh2 monopoliza las peores posiciones (4 de top 5)
 - Rango de MSE: 24× diferencia entre mejor (0.025) y peor (0.607)
 - Alta variabilidad inter-dataset, baja variabilidad intra-dataset (horizontes consecutivos)
+
+---
+
+## Índice de Archivos Generados
+
+### Estructura de Directorios
+
+```
+resultados/
+├── ETTh1/
+│   ├── graficas/                    # 5 gráficas consolidadas
+│   │   ├── ETTh1_metricas_mse.png
+│   │   ├── ETTh1_metricas_mae.png
+│   │   ├── ETTh1_metricas_rmse.png
+│   │   ├── ETTh1_metricas_mape.png
+│   │   └── ETTh1_metricas_r2.png
+│   ├── metricas/
+│   │   └── TEST_resultados.csv      # Métricas finales de test
+│   └── H{24,48,96,192,336,720}/     # 6 directorios (uno por horizonte)
+│       ├── graficas/                # 8 gráficas por experimento
+│       │   ├── ETTh1_L96_H{H}_mse.png
+│       │   ├── ETTh1_L96_H{H}_mae.png
+│       │   ├── ETTh1_L96_H{H}_rmse.png
+│       │   ├── ETTh1_L96_H{H}_mape.png
+│       │   ├── ETTh1_L96_H{H}_r2.png
+│       │   ├── ETTh1_L96_H{H}_lr.png
+│       │   ├── ETTh1_L96_H{H}_velocidad.png
+│       │   └── ETTh1_L96_H{H}_serie_test_MULTI.png
+│       ├── metricas/
+│       │   └── ETTh1_TreeDRNet_L96_H{H}_hist.csv
+│       └── pesos/
+│           └── ETTh1_TreeDRNet_L96_H{H}.pt
+├── ETTh2/                           # Misma estructura que ETTh1
+├── ETTm1/                           # Misma estructura que ETTh1
+└── ETTm2/                           # Solo H24, H48, H96
+```
+
+### Tipos de Archivos
+
+#### 1. Checkpoints de Modelos (`.pt`)
+- **Ubicación**: `resultados/{dataset}/H{H}/pesos/*.pt`
+- **Contenido**: Estado completo del mejor modelo (pesos, optimizer, epoch)
+- **Uso**: Cargar modelo para inferencia o continuar entrenamiento
+- **Ejemplo**: `resultados/ETTm1/H24/pesos/ETTm1_TreeDRNet_L96_H24.pt`
+
+#### 2. Historial de Entrenamiento (`.csv`)
+- **Ubicación**: `resultados/{dataset}/H{H}/metricas/*_hist.csv`
+- **Contenido**: Métricas por época (MSE, MAE, RMSE, MAPE, R², LR, velocidad)
+- **Columnas**: 15 columnas con train/val para cada métrica
+- **Ejemplo**: `resultados/ETTh1/H24/metricas/ETTh1_TreeDRNet_L96_H24_hist.csv`
+
+#### 3. Resultados de Test (`.csv`)
+- **Ubicación**: `resultados/{dataset}/metricas/TEST_resultados.csv`
+- **Contenido**: Métricas finales del conjunto de test para todos los horizontes
+- **Columnas**: dataset, modelo, L, H, test_mse, test_mae, test_rmse, test_mape, test_r2
+- **Ejemplo**: `resultados/ETTh1/metricas/TEST_resultados.csv`
+
+#### 4. Gráficas por Experimento (`.png`)
+- **Ubicación**: `resultados/{dataset}/H{H}/graficas/*.png`
+- **Total**: 8 gráficas por experimento
+- **Resolución**: Alta calidad para publicación
+
+#### 5. Gráficas Consolidadas (`.png`)
+- **Ubicación**: `resultados/{dataset}/graficas/*.png`
+- **Total**: 5 gráficas por dataset
+- **Propósito**: Comparar horizontes en un solo vistazo
+
+### Navegación Rápida
+
+**Para revisar mejor experimento (ETTm1-H24)**:
+- Historial: `resultados/ETTm1/H24/metricas/ETTm1_TreeDRNet_L96_H24_hist.csv`
+- Gráficas: `resultados/ETTm1/H24/graficas/`
+- Pesos: `resultados/ETTm1/H24/pesos/ETTm1_TreeDRNet_L96_H24.pt`
+
+**Para revisar anomalía (ETTh2-H96)**:
+- Historial: `resultados/ETTh2/H96/metricas/ETTh2_TreeDRNet_L96_H96_hist.csv`
+- Gráficas: `resultados/ETTh2/H96/graficas/`
+- Predicciones: `resultados/ETTh2/H96/graficas/ETTh2_L96_H96_serie_test_MULTI.png`
+
+**Para comparaciones entre datasets**:
+- MSE: `resultados/{ETTh1,ETTh2,ETTm1}/graficas/*_metricas_mse.png`
+- MAE: `resultados/{ETTh1,ETTh2,ETTm1}/graficas/*_metricas_mae.png`
+- Test: `resultados/{ETTh1,ETTh2,ETTm1}/metricas/TEST_resultados.csv`
 
