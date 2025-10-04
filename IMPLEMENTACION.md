@@ -1,7 +1,5 @@
 # Implementación TreeDRNet
 
-## Arquitectura Implementada
-
 ## Módulos Principales
 
 ### 1. DResBlock
