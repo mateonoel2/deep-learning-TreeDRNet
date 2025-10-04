@@ -169,10 +169,9 @@ def forward(self, x):
 Nivel 0: 1 nodo  → genera 2 forecasts
 Nivel 1: 2 nodos → generan 4 forecasts
 Nivel 2: 4 nodos → generan 8 forecasts
-Nivel 3: 8 nodos → generan 16 forecasts
 
-Total forecasts = 2 + 4 + 8 + 16 = 30
-Predicción final = promedio de los 30 forecasts
+Total forecasts = 2 + 4 + 8 = 14
+Predicción final = suma de promedios por nivel
 ```
 
 ---
@@ -213,12 +212,14 @@ MIN_DELTA_ES = 1e-5
 - ↑ Profundidad → Más nodos, más cómputo
 - Profundidad=3: 2 + 4 + 8 = 14 forecasts promediados
 - Profundidad=4: 2 + 4 + 8 + 16 = 30 forecasts promediados
+- Profundidad=5: 2 + 4 + 8 + 16 + 32 = 62 forecasts promediados
 
 **Número de Ramas (TD_RAMAS)**:
 - ↑ Ramas → Más diversidad en ensemble
-- ↑ Ramas → Crecimiento exponencial de nodos (K^depth)
-- num_ramas=2 con depth=3: 8 nodos finales
-- num_ramas=3 con depth=3: 27 nodos finales
+- ↑ Ramas → Crecimiento exponencial de nodos (K^(depth-1))
+- num_ramas=2 con depth=3: 4 nodos finales (2^2)
+- num_ramas=3 con depth=3: 9 nodos finales (3^2)
+- num_ramas=2 con depth=4: 8 nodos finales (2^3)
 
 ---
 
