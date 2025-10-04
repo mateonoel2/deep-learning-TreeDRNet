@@ -1,14 +1,5 @@
 # Implementación TreeDRNet
 
-## Índice de Contenidos (Timing Sugerido)
-
-1. **Arquitectura de Módulos** (1 min) - DResBlock → TreeDRNet
-2. **Estructura del Árbol** (2 min) - Forward pass y bug corregido
-3. **Pipeline de Datos** (1 min) - Carga, normalización, ventanas
-4. **Optimización** (1 min) - Entrenamiento, scheduler, checkpointing
-
----
-
 ## Arquitectura Implementada
 
 ### Jerarquía de Módulos
