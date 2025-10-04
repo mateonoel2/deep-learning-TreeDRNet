@@ -1,6 +1,6 @@
 # Resultados Experimentales
 
-## 📊 Configuración Experimental
+## Configuración Experimental
 
 ### Setup
 
@@ -25,7 +25,7 @@ Optimizer: AdamW (weight_decay=1e-2)
 
 ---
 
-## 📈 Métricas de Test: MSE y MAE
+## Métricas de Test: MSE y MAE
 
 ### Métricas Reportadas
 
@@ -42,7 +42,7 @@ Para cada combinación (dataset, horizonte) se reportan las **dos métricas prin
 
 ---
 
-## 📊 Tabla de Resultados: MSE y MAE por Horizonte
+## Tabla de Resultados: MSE y MAE por Horizonte
 
 > **Estado**: ⏳ Experimentos en progreso  
 > **Nota**: Los resultados se actualizarán al completar los 24 experimentos
@@ -77,7 +77,7 @@ Para cada combinación (dataset, horizonte) se reportan las **dos métricas prin
 
 ---
 
-## 📉 Ejemplo de Convergencia
+## Ejemplo de Convergencia
 
 ### ETTh1-H24 (Disponible)
 
@@ -101,7 +101,7 @@ Ejemplo de curva de aprendizaje durante entrenamiento:
 
 ---
 
-## 📉 Análisis de Convergencia
+## Análisis de Convergencia
 
 ### Patrón de Aprendizaje Observado
 
@@ -136,7 +136,7 @@ Ejemplo de curva de aprendizaje durante entrenamiento:
 
 ---
 
-## 💭 Discusión
+## Discusión
 
 ### Hallazgos Clave
 
@@ -211,7 +211,7 @@ H=720:  MSE ≈ 0.40-0.70  |  MAE ≈ 0.55-0.75  (más difícil)
 
 ---
 
-## 🎨 Visualizaciones
+## Visualizaciones
 
 ### Gráficas Generadas por Experimento
 
@@ -230,7 +230,7 @@ Para cada combinación (dataset, horizonte):
 
 ---
 
-## 🎯 Conclusiones
+## Conclusiones
 
 ### Hallazgos hasta Ahora
 

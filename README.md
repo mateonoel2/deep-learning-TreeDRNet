@@ -2,11 +2,11 @@
 
 Implementación del modelo **TreeDRNet** para predicción de series de tiempo a largo plazo en el dataset ETT (Electricity Transformer Temperature).
 
-## 📋 Objetivo
+## Objetivo
 
 Aplicar el approach del paper **"TreeDRNet: A Robust Deep Model for Long Term Time Series Forecasting"** (Zhou et al., 2022) para predecir la temperatura del aceite (OT) en transformadores eléctricos.
 
-## 🎯 Configuración Experimental
+## Configuración Experimental
 
 - **Dataset**: ETTh1, ETTh2, ETTm1, ETTm2 ([ETDataset](https://github.com/zhouhaoyi/ETDataset))
 - **Input Length (L)**: 96 pasos temporales
@@ -14,30 +14,30 @@ Aplicar el approach del paper **"TreeDRNet: A Robust Deep Model for Long Term Ti
 - **Split**: 70% train / 10% val / 20% test (temporal)
 - **Métricas principales**: **MSE y MAE** por horizonte
 
-## 📚 Documentación Detallada
+## Documentación Detallada
 
-### 1. [METODOLOGIA.md](METODOLOGIA.md) 📄
+### 1. [METODOLOGIA.md](METODOLOGIA.md)
 **Contenido del paper TreeDRNet**:
 - Motivación y problema a resolver
 - Arquitectura completa (DRes, Gating, Tree Structure)
 - Fundamentos teóricos (robust regression, Kolmogorov-Arnold)
 - Ventajas vs SOTA (20-40% mejora, 10× más rápido)
 
-### 2. [IMPLEMENTACION.md](IMPLEMENTACION.md) 🏗️
+### 2. [IMPLEMENTACION.md](IMPLEMENTACION.md)
 **Detalles técnicos de implementación**:
 - Jerarquía de módulos (DResBlock → GatedBranch → MultiBranchBlock → TreeDRNet)
 - Pipeline de datos (carga, normalización, ventanas)
 - Loop de entrenamiento (optimizer, scheduler, early stopping)
 - Configuración de hiperparámetros
 
-### 3. [RESULTADOS.md](RESULTADOS.md) 📊
+### 3. [RESULTADOS.md](RESULTADOS.md)
 **Métricas, análisis y discusión**:
 - Curvas de aprendizaje observadas
 - Performance por horizonte de predicción
 - Ablation studies propuestos
 - Limitaciones y trabajos futuros
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Instalación
 ```bash
@@ -63,7 +63,7 @@ Lab2/
 └── *.md                          # Documentación
 ```
 
-## 📖 Referencias
+## Referencias
 
 **Paper**: Zhou, T., et al. (2022). TreeDRNet: A Robust Deep Model for Long Term Time Series Forecasting. [arXiv:2206.12106](https://arxiv.org/abs/2206.12106)
 

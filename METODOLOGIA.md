@@ -1,12 +1,12 @@
 # Metodología TreeDRNet
 
-## 📄 Paper Original
+## Paper Original
 
 **TreeDRNet: A Robust Deep Model for Long Term Time Series Forecasting**  
 Zhou, T., Zhu, J., Wang, X., Ma, Z., Wen, Q., Sun, L., & Jin, R. (2022)  
 [arXiv:2206.12106](https://arxiv.org/abs/2206.12106)
 
-## 🎯 Motivación
+## Motivación
 
 ### Problema a Resolver
 
@@ -26,7 +26,7 @@ Zhou, T., Zhu, J., Wang, X., Ma, Z., Wen, Q., Sun, L., & Jin, R. (2022)
 
 ---
 
-## 🏗️ Arquitectura TreeDRNet
+## Arquitectura TreeDRNet
 
 ### 1. Doubly Residual (DRes) Structure
 
@@ -99,7 +99,7 @@ En cada nodo, K ramas paralelas procesan el mismo input:
 
 ---
 
-## 🔬 Fundamentos Teóricos
+## Fundamentos Teóricos
 
 ### 1. Robust Regression
 
@@ -127,7 +127,7 @@ TreeDRNet implementa esto mediante:
 
 ---
 
-## 📊 Algoritmo de Forward Pass
+## Algoritmo de Forward Pass
 
 ```
 Input: x ∈ ℝ^(L×D)  # L=longitud ventana, D=dimensiones
@@ -162,7 +162,7 @@ Input: x ∈ ℝ^(L×D)  # L=longitud ventana, D=dimensiones
 
 ---
 
-## 💡 Ventajas Clave del Método
+## Ventajas Clave del Método
 
 ### 1. Eficiencia Computacional
 - **Solo MLPs**: O(n) vs O(n²) de attention
@@ -186,7 +186,7 @@ Input: x ∈ ℝ^(L×D)  # L=longitud ventana, D=dimensiones
 
 ---
 
-## 📈 Resultados Reportados en el Paper
+## Resultados Reportados en el Paper
 
 ### Performance vs State-of-the-Art
 
@@ -208,7 +208,7 @@ En datasets de benchmark (ETT, Weather, Electricity):
 
 ---
 
-## 🎛️ Hiperparámetros Clave
+## Hiperparámetros Clave
 
 | Parámetro | Descripción | Valor Típico |
 |-----------|-------------|--------------|
@@ -225,7 +225,7 @@ En datasets de benchmark (ETT, Weather, Electricity):
 
 ---
 
-## 🔗 Comparación con Otros Métodos
+## Comparación con Otros Métodos
 
 | Método | Complejidad | Long-term | Robustez | Eficiencia |
 |--------|-------------|-----------|----------|------------|
@@ -236,7 +236,7 @@ En datasets de benchmark (ETT, Weather, Electricity):
 
 ---
 
-## 📚 Conceptos Clave para Recordar
+## Conceptos Clave para Recordar
 
 1. **Doubly Residual**: Backcast (reconstrucción) + Forecast (predicción)
 2. **Gating**: Selección automática de features relevantes
@@ -246,7 +246,7 @@ En datasets de benchmark (ETT, Weather, Electricity):
 
 ---
 
-## 🎓 Aplicabilidad
+## Aplicabilidad
 
 TreeDRNet es especialmente útil para:
 

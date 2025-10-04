@@ -1,9 +1,6 @@
 # Implementación TreeDRNet
 
-> **Tiempo de presentación**: 5 minutos  
-> **Objetivo**: Explicar detalles técnicos de la implementación
-
-## 📑 Índice de Contenidos (Timing Sugerido)
+## Índice de Contenidos (Timing Sugerido)
 
 1. **Arquitectura de Módulos** (1 min) - DResBlock → TreeDRNet
 2. **Estructura del Árbol** (2 min) - Forward pass y bug corregido
@@ -12,7 +9,7 @@
 
 ---
 
-## 🏗️ Arquitectura Implementada
+## Arquitectura Implementada
 
 ### Jerarquía de Módulos
 
@@ -30,7 +27,7 @@ TreeDRNet
 
 ---
 
-## 📦 Módulos Principales
+## Módulos Principales
 
 ### 1. DResBlock
 
@@ -207,7 +204,7 @@ Predicción final = promedio de los 30 forecasts
 
 ---
 
-## 🔧 Detalles Técnicos Importantes
+## Detalles Técnicos Importantes
 
 ### 1. Por qué `forward_all_branches`?
 
@@ -259,7 +256,7 @@ Conv1d(in_channels=7, out_channels=7, kernel_size=1)
 
 ---
 
-## 🎛️ Configuración de Hiperparámetros
+## Configuración de Hiperparámetros
 
 ### Valores Utilizados
 
@@ -304,7 +301,7 @@ MIN_DELTA_ES = 1e-5
 
 ---
 
-## 📊 Pipeline de Datos
+## Pipeline de Datos
 
 ### 1. Carga y Split
 
@@ -377,7 +374,7 @@ dl_train = DataLoader(
 
 ---
 
-## 🏋️ Loop de Entrenamiento
+## Loop de Entrenamiento
 
 ### 1. Optimización
 
@@ -445,7 +442,7 @@ if val_mse < best_val_mse:
 
 ---
 
-## 📈 Evaluación
+## Evaluación
 
 ### Métricas Implementadas
 
@@ -473,7 +470,7 @@ def evaluar_test(modelo, ds_test, device, esc_y, mape_original=True):
 
 ---
 
-## 🎨 Visualizaciones
+## Visualizaciones
 
 ### Gráficas Generadas
 
@@ -485,7 +482,7 @@ def evaluar_test(modelo, ds_test, device, esc_y, mape_original=True):
 
 ---
 
-## 🔍 Debugging Tips
+## Debugging Tips
 
 ### Verificar Shapes
 
@@ -513,14 +510,3 @@ print(f"Backcast 0: {bcs[0][:5]}")
 print(f"Backcast 1: {bcs[1][:5]}")
 # Deben ser diferentes!
 ```
-
----
-
-## 📝 Clean Code Practices
-
-1. **Sin comentarios**: El código se auto-documenta con nombres claros
-2. **Type hints**: `def func(x: torch.Tensor) -> torch.Tensor`
-3. **Separación de concerns**: Cada módulo tiene una responsabilidad
-4. **DRY**: No repetir lógica (ej. `forward_all_branches`)
-5. **Configuración centralizada**: Todos los hiperparámetros en `experimentos.py`
-
