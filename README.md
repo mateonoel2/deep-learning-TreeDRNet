@@ -12,7 +12,7 @@ Aplicar el approach del paper **"TreeDRNet: A Robust Deep Model for Long Term Ti
 - **Input Length (L)**: 96 pasos temporales
 - **Horizontes (H)**: {24, 48, 96, 192, 336, 720}
 - **Split**: 70% train / 10% val / 20% test (temporal)
-- **Métricas**: MSE, MAE, RMSE, MAPE, R²
+- **Métricas principales**: **MSE y MAE** por horizonte
 
 ## 📚 Documentación Detallada
 
